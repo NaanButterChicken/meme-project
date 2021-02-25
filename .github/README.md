@@ -1,7 +1,7 @@
-# yelpForAnything
-![](https://img.shields.io/github/repo-size/timburr1/yelpForAnything)
-![](https://img.shields.io/github/contributors/timburr1/yelpForAnything)
-![](https://img.shields.io/github/last-commit/timburr1/yelpForAnything)
+# meme-project
+![](https://img.shields.io/github/repo-size/NaanButterChicken/meme-project)
+![](https://img.shields.io/github/contributors/NaanButterChicken/meme-project)
+![](https://img.shields.io/github/last-commit/NaanButterChicken/meme-project)
 <br>Simple ratings web page, built with MySQL and Node.js.
 
 ## Prerequisites
