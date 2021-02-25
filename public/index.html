@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>help i broke something</title>
+
+	</head>
+	<body>
+		<!--
+		<nav>
+			<ul>
+            	<li><a href="/">Home</a></li>
+				<li><a href="/admin">Admin</a></li>
+			</ul>
+		</nav>
+		-->
+
+		<script type="text/javascript"> 
+			
+			function giveMeSomething(){
+				var xhr = new XMLHttpRequest();			
+				
+				xhr.open("GET","http://localhost:3000/whatsBetter", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+				xhr.onreadystatechange = function() {
+        			if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+						document.getElementById("pineapple").innerHTML = this.responseText;
+						//document.getElementById("memes-div")
+       				}
+				};
+				
+				xhr.send();
+   			}
+			   
+			function insertMeme() {
+				var filepath = document.getElementById("input").value;
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET","http://localhost:3000/insertMeme");
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send();
+			}
+
+			
+			function getTopMeme() {
+				var filepath = document.getElementById("input").value;
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET","http://localhost:3000/getTopMeme");
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send();
+			}
+			
+
+		</script>
+
+		<h1>pineapple or no?</h1>
+
+		<button type="button" onclick="giveMeSomething()">click for the truth</button> <!--i reckon thisll be turned into 'gimme a meme' in the future-->
+
+		<div id="pineapple">
+			<p>we really need a way to control the size of the images so its all uniform</p>
+		</div>
+
+		<div id="memes-div">
+
+			<input id="input" type="text" accept-charset="utf-8" />
+			<button type="button" onclick="insertMeme()">insert the meme</button>
+			<br />
+			
+			<button type="button" onclick="getTopMeme()">see the list of memes or something</button>
+			<!--this actually does something now! we need to get the table out now, and print it to the webpage-->
+			
+
+		</div>
+
+		<br />
+		<p>ahem. so anyway whats next? need to access that table we made, called memeStore, and summon a meme from the table onto the page</p>
+		
+
+		<footer>Go Patriots!</footer> 
+	</body>
+</html>
