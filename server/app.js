@@ -28,14 +28,12 @@ app.get('/admin', (req, res)  => {
     });
 })
 
-//ignore insertRating i dont think its needed atm
-app.get('/insertRating', (request, response)  => {
+app.get('/insertMeme', (request, response)  => {
+    var url = request.query.url;
+    //var stars = request.query.stars;
+    //var comment = request.query.comment;
     
-    var ratee = request.query.ratee;
-    var stars = request.query.stars;
-    var comment = request.query.comment;
-    
-    dao.insertRating(ratee, stars, comment);
+    dao.insertMeme(url/*, stars, comment*/);
 
     response.status(200).send( {});
 })
@@ -44,9 +42,9 @@ app.get('/whatsBetter', (request, response)  => {
     
     var coinFlip = Math.random();
     if (coinFlip > .5) {
-        response.status(200).send("<img src='https://prods3.imgix.net/images/articles/2017_05/Facebook-hawaiian-pizza-origins.jpg' alt='pineapple'> ");
+        response.status(200).send("<img src='https://prods3.imgix.net/images/articles/2017_05/Facebook-hawaiian-pizza-origins.jpg' alt='pineapple' width='20%'> ");
     } else {
-        response.status(200).send("<img src='https://bakerbynature.com/wp-content/uploads/2014/05/IMG_4645-682x1024.jpg' alt='the boring answer'> ");
+        response.status(200).send("<img src='https://bakerbynature.com/wp-content/uploads/2014/05/IMG_4645-682x1024.jpg' alt='the boring answer' width='20%'> ");
     }
     //https://prods3.imgix.net/images/articles/2017_05/Facebook-hawaiian-pizza-origins.jpg **actually this is a pretty epic picture and now i want pizza
 })
@@ -56,17 +54,14 @@ app.get('/insertMeme', (request, response) => {
     response.status(200).send( {});
 })
 
-/* this is troublesome
-app.get('/getTopMeme', (request, response) => {
-    dao.getTopMeme(request.query.filepath);
-    response.status(200).send( {});
-})
-*/
+//oh no oh mama i forgot to water my baguettes
+//hydrate us ryan
 
-app.get('/getTopMeme', async (request, response) => { //(request , response) and everything might not be accurate
-    var url = await dao.getTopMeme //there might be more here
-    console.log('grabbing it...')//more?
-    response.status(200).send( {}); //more- maybe not tho *shrugs*
+app.get('/getTopMeme', async (request, response) => {
+    console.log("waiting...")
+    var url = await dao.getTopMeme();
+    console.log(url); //eventually turn this into html somehow
+    response.status(200).send(url);
 })
 
 app.listen(port, () => {

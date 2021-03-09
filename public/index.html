@@ -45,7 +45,8 @@
 
 			
 			function getTopMeme() {
-				var filepath = document.getElementById("input").value;
+				//actualy, i thinkthat this whole function has to be changed a wee bit (or a lot)
+				var filepath = document.getElementById("input").value; //i dont think the Id we want to grab is input but i dont know what should go here
 
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET","http://localhost:3000/getTopMeme");
@@ -72,7 +73,7 @@
 			
 			<button type="button" onclick="getTopMeme()">see the list of memes or something</button>
 			<!--this actually does something now! we need to get the table out now, and print it to the webpage-->
-			
+			<!--<img src="" width="50%" height="50%">-->
 
 		</div>
 

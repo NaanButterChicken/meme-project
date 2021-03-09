@@ -18,36 +18,33 @@ con.connect(function(err) {
     console.log("would you like to play a game? (table created)");
   });
 });
+ 
+function getRandomIndex(length) {
+//length is the number of results in memeStore
+  var randInt = Math.random()
+
+  Math.floor(randInt*length)
+}
 
 module.exports = {
-  /* --this one isnt needed yet (probably)
 
-  getAllRatings: function() {
-    con.query("SELECT ratee, stars, comment FROM rating;", 
+  /*getTopMeme: function() {
+    con.query("SELECT url FROM memeStore;", 
     function (err, result, fields) {
         if (err) throw err;
+    
+        //for(var n=0; n < result.length; n++) {
+        //  console.log(result[n]);
+        //}
 
-      // TODO: This for loop will print your resultSet to the console.\
-      // Instead, could you put them into a single string, and return that, 
-      // so that the route handler can pass it back to your browser?       
-        for(var n=0; n < result.length; n++) {
-          console.log(result[n]);
-        }
+        var index = getRandomIndex(result.length)
+        return(result[index].url)
     });  
-  },
+  },*/
   
-  */
 
-  //ORIGINAL insertRating DONT CHANGE THIS MAKE A COPY
-  insertRating: function (ratee, stars, comment) {
-    con.query("INSERT INTO rating VALUES ( ? )", [[ratee, stars, comment]], 
-    function (err, result) {
-        if (err) throw err;
-        console.log("1 insertRating record inserted");
-    });    
-  },
   
-  //insertMeme HERE
+
   insertMeme: function (id, url) {
     con.query("INSERT INTO memeStore VALUES ( ? )", [[id, url]], 
     function (err, result) {
@@ -68,17 +65,17 @@ module.exports = {
   }
 */
 
-  //this does something async
+
   getTopMeme: async function(){
     return new Promise( resolve => {
       con.query("SELECT url FROM memeStore;",
       function (err, result, fields) {
         if (err) throw err;
 
-        var i = getRandomIndex(result.length);
+        var index = getRandomIndex(result.length);
         //console.log(result[0].url);
 
-        resolve(result[i].url);
+        return(result[index].url);
       })
     })
   }
