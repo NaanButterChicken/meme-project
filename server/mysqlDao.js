@@ -45,8 +45,9 @@ module.exports = {
 
   
 
-  insertMeme: function (id, url) {
-    con.query("INSERT INTO memeStore VALUES ( ? )", [[id, url]], 
+  insertMeme: function (url) {
+    console.log("trying to insert: " + url);
+    con.query("INSERT INTO yelp.memeStore VALUES ( null, " + url +" )", 
     function (err, result) {
         if (err) throw err;
         console.log("1 insertMeme record inserted");
@@ -61,7 +62,7 @@ module.exports = {
     function (err, result) {
         if (err) throw err;
         console.log(urlList);
-   });    
+   });
   }
 */
 
@@ -75,7 +76,15 @@ module.exports = {
         var index = getRandomIndex(result.length);
         //console.log(result[0].url);
 
-        return(result[index].url);
+        var res = result[index]["url"];
+
+        //for(var n=0; n < fields.length; n++) {
+        //  console.log(fields[n]);
+        //}
+
+        console.log(res);
+        resolve(res);
+        //resolve(result[index]["url"]);
       })
     })
   }

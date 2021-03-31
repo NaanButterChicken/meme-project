@@ -6,6 +6,8 @@ const dao = require('./mysqlDao.js');
 const { response } = require('express');
 //const dao = require('.sqliteDao.js');
 
+//var multer = require('multer');
+
 const app = express();
 const port = 3000;
 
@@ -28,15 +30,8 @@ app.get('/admin', (req, res)  => {
     });
 })
 
-app.get('/insertMeme', (request, response)  => {
-    var url = request.query.url;
-    //var stars = request.query.stars;
-    //var comment = request.query.comment;
-    
-    dao.insertMeme(url/*, stars, comment*/);
+//above is technical whatevers that make things work, the stuff below this is functions i need for stuff ... i think
 
-    response.status(200).send( {});
-})
 
 app.get('/whatsBetter', (request, response)  => {
     
@@ -50,6 +45,8 @@ app.get('/whatsBetter', (request, response)  => {
 })
 
 app.get('/insertMeme', (request, response) => {
+    console.log("handler is trying to insert: " + request.query.filepath);
+    
     dao.insertMeme(request.query.filepath);
     response.status(200).send( {});
 })
