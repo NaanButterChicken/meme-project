@@ -6,7 +6,7 @@ const dao = require('./mysqlDao.js');
 const { response } = require('express');
 //const dao = require('.sqliteDao.js');
 
-//var multer = require('multer');
+var multer = require('multer');
 
 const app = express();
 const port = 3000;
@@ -29,6 +29,32 @@ app.get('/admin', (req, res)  => {
         root: path.resolve('../public')
     });
 })
+
+// multer saving files or something (eternal pain):
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, './uploads')
+    },
+    filename: function(req, file, cb) {
+      const uniqeSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqeSuffix)
+    }
+  })
+  var upload = multer({ storage: storage/*, 
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpg") {//||something else) {
+        cb(null, true);
+      } else {
+        cb(null, false);
+        return cb(new Error('images and gifs only pls'));
+      }
+    }*/
+  })
+  app.post('/putMeme', upload.single('meme'), function (req, res) {
+    dao.insertMeme(req.file.filename);
+    res.status(200).send("inserted new file: " + req.file.filename);
+  });  
 
 //above is technical whatevers that make things work, the stuff below this is functions i need for stuff ... i think
 
@@ -57,8 +83,9 @@ app.get('/insertMeme', (request, response) => {
 app.get('/getTopMeme', async (request, response) => {
     console.log("waiting...")
     var url = await dao.getTopMeme();
-    console.log(url); //eventually turn this into html somehow
-    response.status(200).send(url);
+    console.log(url); 
+    //stick the url in an image tag and load it in
+    response.status(200).send('<img src="'+url+'" alt="'+url+'"></img>');
 })
 
 app.listen(port, () => {

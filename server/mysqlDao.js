@@ -7,7 +7,6 @@ var con = mysql.createConnection({
   database: "yelp"
 });
 
-
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -23,7 +22,7 @@ function getRandomIndex(length) {
 //length is the number of results in memeStore
   var randInt = Math.random()
 
-  Math.floor(randInt*length)
+  return Math.floor(randInt*length)
 }
 
 module.exports = {
@@ -47,7 +46,7 @@ module.exports = {
 
   insertMeme: function (url) {
     console.log("trying to insert: " + url);
-    con.query("INSERT INTO yelp.memeStore VALUES ( null, " + url +" )", 
+    con.query("INSERT INTO yelp.memeStore VALUES ( null, " + con.escape(url) +" );", 
     function (err, result) {
         if (err) throw err;
         console.log("1 insertMeme record inserted");
@@ -76,13 +75,10 @@ module.exports = {
         var index = getRandomIndex(result.length);
         //console.log(result[0].url);
 
-        var res = result[index]["url"];
-
-        //for(var n=0; n < fields.length; n++) {
-        //  console.log(fields[n]);
-        //}
+        var res = result[index].url;
 
         console.log(res);
+
         resolve(res);
         //resolve(result[index]["url"]);
       })
